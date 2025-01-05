@@ -36,23 +36,23 @@ export function MonthYearPicker({
   };
 
   return (
-    <div className="flex items-center space-x-2 bg-white rounded-lg shadow-sm px-3 py-2">
+    <div className="flex items-center space-x-2 bg-white dark:bg-gray-800 rounded-lg shadow-sm px-3 py-2">
       <button
         onClick={handlePrevMonth}
-        className="p-1 hover:bg-gray-100 rounded transition-colors"
+        className="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded transition-colors"
       >
-        <ChevronLeft className="w-4 h-4" />
+        <ChevronLeft className="w-4 h-4 text-gray-600 dark:text-gray-400" />
       </button>
       
-      <span className="text-sm font-medium text-gray-900">
+      <span className="text-sm font-medium text-gray-900 dark:text-gray-100">
         {months[month]} {year}
       </span>
       
       <button
         onClick={handleNextMonth}
-        className="p-1 hover:bg-gray-100 rounded transition-colors"
+        className="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded transition-colors"
       >
-        <ChevronRight className="w-4 h-4" />
+        <ChevronRight className="w-4 h-4 text-gray-600 dark:text-gray-400" />
       </button>
     </div>
   );
