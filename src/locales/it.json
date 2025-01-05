@@ -3,7 +3,7 @@
     "addTransaction": "Aggiungi Transazione",
     "income": "Entrate",
     "expense": "Uscite",
-    "balance": "Bilancio",
+    "balance": "Saldo",
     "loading": "Caricamento transazioni...",
     "noTransactions": "Nessuna {{type}} trovata per questo periodo",
     "type": "Tipo",
@@ -11,5 +11,6 @@
     "amount": "Importo",
     "date": "Data",
     "add": "Aggiungi",
-    "months": ["Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre"]
+    "months": ["Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre"],
+    "currentMonth": "Mese corrente"
 }

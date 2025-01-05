@@ -2,7 +2,7 @@
     "title": "Income/Expense Manager",
     "addTransaction": "Add Transaction",
     "income": "Income",
-    "expense": "Expense",
+    "expense": "Expenses",
     "balance": "Balance",
     "loading": "Loading transactions...",
     "noTransactions": "No {{type}}s found for this period",
@@ -11,5 +11,6 @@
     "amount": "Amount",
     "date": "Date",
     "add": "Add",
-    "months": ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+    "months": ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+    "currentMonth": "Current month"
 }

@@ -1,4 +1,4 @@
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Calendar } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 interface MonthYearPickerProps {
@@ -35,25 +35,41 @@ export function MonthYearPicker({
     }
   };
 
+  const handleCurrentMonth = () => {
+    const now = new Date();
+    onMonthChange(now.getMonth());
+    onYearChange(now.getFullYear());
+  };
+
   return (
-    <div className="flex items-center space-x-2 bg-white dark:bg-gray-800 rounded-lg shadow-sm px-3 py-2">
+    <div className="flex items-center space-x-2">
       <button
-        onClick={handlePrevMonth}
-        className="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded transition-colors"
+        onClick={handleCurrentMonth}
+        title={t('currentMonth')}
+        className="px-3 py-1.5 border dark:border-gray-700 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 flex items-center"
       >
-        <ChevronLeft className="w-4 h-4 text-gray-600 dark:text-gray-400" />
+        <Calendar className="w-4 h-4" />
       </button>
       
-      <span className="text-sm font-medium text-gray-900 dark:text-gray-100">
-        {months[month]} {year}
-      </span>
-      
-      <button
-        onClick={handleNextMonth}
-        className="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded transition-colors"
-      >
-        <ChevronRight className="w-4 h-4 text-gray-600 dark:text-gray-400" />
-      </button>
+      <div className="flex items-center space-x-2 bg-white dark:bg-gray-800 rounded-lg shadow-sm px-3 py-2">
+        <button
+          onClick={handlePrevMonth}
+          className="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded transition-colors"
+        >
+          <ChevronLeft className="w-4 h-4 text-gray-600 dark:text-gray-400" />
+        </button>
+        
+        <span className="text-sm font-medium text-gray-900 dark:text-gray-100">
+          {months[month]} {year}
+        </span>
+        
+        <button
+          onClick={handleNextMonth}
+          className="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded transition-colors"
+        >
+          <ChevronRight className="w-4 h-4 text-gray-600 dark:text-gray-400" />
+        </button>
+      </div>
     </div>
   );
 }

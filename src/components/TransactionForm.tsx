@@ -42,7 +42,7 @@ export function TransactionForm({ onSubmit }: TransactionFormProps) {
           <select
             value={type}
             onChange={(e) => setType(e.target.value as TransactionType)}
-            className="w-full p-2.5 rounded-lg border-gray-300 dark:border-gray-600 shadow-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+            className="w-full p-2.5 rounded-lg border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 shadow-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
           >
             <option value="income">{t('income')}</option>
             <option value="expense">{t('expense')}</option>
@@ -56,7 +56,7 @@ export function TransactionForm({ onSubmit }: TransactionFormProps) {
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             required
-            className="w-full p-2.5 rounded-lg border-gray-300 dark:border-gray-600 shadow-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+            className="w-full p-2.5 rounded-lg border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 shadow-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
             placeholder={t('titleLabel')}
           />
         </div>
@@ -70,7 +70,7 @@ export function TransactionForm({ onSubmit }: TransactionFormProps) {
             required
             min="0"
             step="0.01"
-            className="w-full p-2.5 rounded-lg border-gray-300 dark:border-gray-600 shadow-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+            className="w-full p-2.5 rounded-lg border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 shadow-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
             placeholder="0.00"
           />
         </div>
@@ -82,7 +82,7 @@ export function TransactionForm({ onSubmit }: TransactionFormProps) {
             value={date}
             onChange={(e) => setDate(e.target.value)}
             required
-            className="w-full p-2.5 rounded-lg border-gray-300 dark:border-gray-600 shadow-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+            className="w-full p-2.5 rounded-lg border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 shadow-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
           />
         </div>
 
