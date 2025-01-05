@@ -1,0 +1,15 @@
+{
+    "title": "Gestore Entrate/Uscite",
+    "addTransaction": "Aggiungi Transazione",
+    "income": "Entrate",
+    "expense": "Uscite",
+    "balance": "Bilancio",
+    "loading": "Caricamento transazioni...",
+    "noTransactions": "Nessuna {{type}} trovata per questo periodo",
+    "type": "Tipo",
+    "titleLabel": "Titolo",
+    "amount": "Importo",
+    "date": "Data",
+    "add": "Aggiungi",
+    "months": ["Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre"]
+  }

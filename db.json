@@ -1,18 +1,32 @@
 {
   "transactions": [
     {
-      "id": 1,
+      "id": "1",
       "type": "income",
       "title": "Salary",
       "amount": 2500,
       "date": "2024-03-15"
     },
     {
-      "id": 2,
+      "id": "2",
       "type": "expense",
       "title": "Rent",
       "amount": 800,
       "date": "2024-03-01"
+    },
+    {
+      "id": "5caf",
+      "type": "expense",
+      "title": "drogaaaa",
+      "amount": 50,
+      "date": "2025-01-05"
+    },
+    {
+      "id": "87be",
+      "type": "income",
+      "title": "regalo natale nonni",
+      "amount": 500,
+      "date": "2025-01-05"
     }
   ]
 }
