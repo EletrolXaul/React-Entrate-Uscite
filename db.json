@@ -27,6 +27,20 @@
       "title": "droga",
       "amount": 50,
       "date": "2025-01-05"
+    },
+    {
+      "id": "a928",
+      "type": "income",
+      "title": "vendita del piccolo Marco",
+      "amount": 1.01,
+      "date": "2025-01-05"
+    },
+    {
+      "id": "0c41",
+      "type": "expense",
+      "title": "per corrompere il compratore del piccolo marco",
+      "amount": 10.1,
+      "date": "2025-01-05"
     }
   ]
 }

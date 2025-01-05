@@ -13,7 +13,7 @@ export function Summary({ income, expenses }: SummaryProps) {
   const isPositive = balance >= 0;
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
       <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-4 flex items-center justify-between">
         <div className="flex items-center space-x-3">
           <div className="p-2 bg-green-50 dark:bg-green-900/20 rounded-full">

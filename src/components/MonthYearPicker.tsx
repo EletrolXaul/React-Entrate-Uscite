@@ -42,16 +42,16 @@ export function MonthYearPicker({
   };
 
   return (
-    <div className="flex items-center space-x-2">
+    <div className="flex items-center space-x-2 w-full sm:w-auto">
       <button
         onClick={handleCurrentMonth}
         title={t('currentMonth')}
-        className="px-3 py-1.5 border dark:border-gray-700 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 flex items-center"
+        className="px-2 sm:px-3 py-1.5 border dark:border-gray-700 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 flex items-center"
       >
         <Calendar className="w-4 h-4" />
       </button>
       
-      <div className="flex items-center space-x-2 bg-white dark:bg-gray-800 rounded-lg shadow-sm px-3 py-2">
+      <div className="flex items-center justify-between flex-grow sm:flex-grow-0 space-x-2 bg-white dark:bg-gray-800 rounded-lg shadow-sm px-3 py-2">
         <button
           onClick={handlePrevMonth}
           className="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded transition-colors"
@@ -59,7 +59,7 @@ export function MonthYearPicker({
           <ChevronLeft className="w-4 h-4 text-gray-600 dark:text-gray-400" />
         </button>
         
-        <span className="text-sm font-medium text-gray-900 dark:text-gray-100">
+        <span className="text-sm font-medium text-gray-900 dark:text-gray-100 whitespace-nowrap">
           {months[month]} {year}
         </span>
         
