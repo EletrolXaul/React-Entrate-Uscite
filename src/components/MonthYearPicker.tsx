@@ -1,5 +1,5 @@
-import React from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 interface MonthYearPickerProps {
   month: number;
@@ -14,10 +14,8 @@ export function MonthYearPicker({
   onMonthChange,
   onYearChange,
 }: MonthYearPickerProps) {
-  const months = [
-    'January', 'February', 'March', 'April', 'May', 'June',
-    'July', 'August', 'September', 'October', 'November', 'December'
-  ];
+  const { t } = useTranslation();
+  const months = t('months', { returnObjects: true }) as string[];
 
   const handlePrevMonth = () => {
     if (month === 0) {

@@ -1,7 +1,7 @@
-import React from 'react';
 import { format } from 'date-fns';
 import { Trash2, ArrowUpCircle, ArrowDownCircle } from 'lucide-react';
 import type { Transaction } from '../types';
+import { useTranslation } from 'react-i18next';
 
 interface TransactionListProps {
   transactions: Transaction[];
@@ -10,6 +10,7 @@ interface TransactionListProps {
 }
 
 export function TransactionList({ transactions, onDelete, type }: TransactionListProps) {
+  const { t } = useTranslation();
   const filteredTransactions = transactions.filter((t) => t.type === type);
   const Icon = type === 'income' ? ArrowUpCircle : ArrowDownCircle;
   const iconColor = type === 'income' ? 'text-green-600' : 'text-red-600';
@@ -20,10 +21,10 @@ export function TransactionList({ transactions, onDelete, type }: TransactionLis
       <div className="bg-white rounded-lg shadow-sm">
         <div className={`flex items-center space-x-3 p-4 border-b ${bgColor}`}>
           <Icon className={`w-5 h-5 ${iconColor}`} />
-          <h2 className="text-lg font-medium text-gray-900 capitalize">{type}s</h2>
+          <h2 className="text-lg font-medium text-gray-900 capitalize">{t(type)}</h2>
         </div>
         <div className="p-4 text-center text-sm text-gray-500">
-          No {type}s found for this period
+          {t('noTransactions', { type: t(type) })}
         </div>
       </div>
     );
@@ -33,7 +34,7 @@ export function TransactionList({ transactions, onDelete, type }: TransactionLis
     <div className="bg-white rounded-lg shadow-sm">
       <div className={`flex items-center space-x-3 p-4 border-b ${bgColor}`}>
         <Icon className={`w-5 h-5 ${iconColor}`} />
-        <h2 className="text-lg font-medium text-gray-900 capitalize">{type}s</h2>
+        <h2 className="text-lg font-medium text-gray-900 capitalize">{t(type)}</h2>
       </div>
       
       <div className="divide-y">
