@@ -1,6 +1,7 @@
 {
     "title": "Gestore Entrate/Uscite",
     "addTransaction": "Aggiungi Transazione",
+    "editTransaction": "Modifica Transazione",
     "income": "Entrate",
     "expense": "Uscite",
     "balance": "Saldo",
@@ -11,6 +12,9 @@
     "amount": "Importo",
     "date": "Data",
     "add": "Aggiungi",
+    "update": "Aggiorna",
+    "cancel": "Annulla",
+    "edit": "Modifica",
     "months": ["Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre"],
     "currentMonth": "Mese corrente",
     "category": "Categoria",

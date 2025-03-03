@@ -1,6 +1,7 @@
 {
     "title": "Income/Expense Manager",
     "addTransaction": "Add Transaction",
+    "editTransaction": "Edit Transaction",
     "income": "Income",
     "expense": "Expenses",
     "balance": "Balance",
@@ -11,6 +12,9 @@
     "amount": "Amount",
     "date": "Date",
     "add": "Add",
+    "update": "Update",
+    "cancel": "Cancel",
+    "edit": "Edit",
     "months": ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
     "currentMonth": "Current month",
     "category": "Category",

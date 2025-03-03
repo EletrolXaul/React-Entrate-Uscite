@@ -1,27 +1,53 @@
-import React, { useState } from 'react';
-import { PlusCircle } from 'lucide-react';
-import type { TransactionType } from '../types';
+import React, { useState, useEffect } from 'react';
+import { PlusCircle, Save } from 'lucide-react';
+import type { Transaction, TransactionType } from '../types';
 import { useTranslation } from 'react-i18next';
 
 interface TransactionFormProps {
   onSubmit: (data: {
+    id?: number; // Opzionale per nuove transazioni
     type: TransactionType;
     title: string;
     amount: number;
     date: string;
-    category: string; // Aggiungi campo categoria
+    category: string;
   }) => void;
+  initialData?: Transaction; // Per la modifica
+  isEdit?: boolean; // Indica se stiamo modificando
+  onCancel?: () => void; // Per annullare la modifica
 }
 
-export function TransactionForm({ onSubmit }: TransactionFormProps) {
+export function TransactionForm({ onSubmit, initialData, isEdit = false, onCancel }: TransactionFormProps) {
   const { t } = useTranslation();
   const [type, setType] = useState<TransactionType>('income');
   const [title, setTitle] = useState('');
   const [amount, setAmount] = useState('');
   const [date, setDate] = useState(new Date().toISOString().split('T')[0]);
-  const [category, setCategory] = useState('General'); // Aggiungi stato per categoria
-  const [customCategory, setCustomCategory] = useState(''); // Per categoria personalizzata
-  const [isCustomCategory, setIsCustomCategory] = useState(false); // Flag per categoria personalizzata
+  const [category, setCategory] = useState('General');
+  const [customCategory, setCustomCategory] = useState('');
+  const [isCustomCategory, setIsCustomCategory] = useState(false);
+
+  // Popoliamo il form con i dati esistenti quando è in modalità modifica
+  useEffect(() => {
+    if (initialData) {
+      setType(initialData.type);
+      setTitle(initialData.title);
+      setAmount(initialData.amount.toString());
+      setDate(initialData.date);
+      
+      // Gestione categoria
+      if (initialData.category) {
+        const isPredefined = predefinedCategories.includes(initialData.category);
+        if (isPredefined) {
+          setCategory(initialData.category);
+          setIsCustomCategory(false);
+        } else {
+          setCustomCategory(initialData.category);
+          setIsCustomCategory(true);
+        }
+      }
+    }
+  }, [initialData]);
 
   // Definisci alcune categorie predefinite
   const predefinedCategories = ['General', 'Casa', 'Lavoro', 'Salute', 'Trasporti', 'Svago'];
@@ -29,23 +55,30 @@ export function TransactionForm({ onSubmit }: TransactionFormProps) {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     onSubmit({
+      ...(initialData && { id: initialData.id }), // Include l'ID se stiamo modificando
       type,
       title,
       amount: Number(amount),
       date,
-      category: isCustomCategory ? customCategory : category, // Usa categoria personalizzata o predefinita
+      category: isCustomCategory ? customCategory : category,
     });
-    setTitle('');
-    setAmount('');
-    setCategory('General');
-    setCustomCategory('');
-    setIsCustomCategory(false);
+    
+    // Resettiamo solo se non stiamo modificando
+    if (!isEdit) {
+      setTitle('');
+      setAmount('');
+      setCategory('General');
+      setCustomCategory('');
+      setIsCustomCategory(false);
+    }
   };
 
   return (
     <div className="p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md">
       <div className="mb-6">
-        <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100">{t('addTransaction')}</h2>
+        <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100">
+          {isEdit ? t('editTransaction') : t('addTransaction')}
+        </h2>
       </div>
       <form onSubmit={handleSubmit} className="space-y-6">
         <div>
@@ -98,7 +131,7 @@ export function TransactionForm({ onSubmit }: TransactionFormProps) {
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Categoria</label>
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">{t('category')}</label>
           
           {!isCustomCategory ? (
             <div className="space-y-2">
@@ -116,7 +149,7 @@ export function TransactionForm({ onSubmit }: TransactionFormProps) {
                 onClick={() => setIsCustomCategory(true)}
                 className="text-sm text-blue-600 dark:text-blue-400 hover:underline"
               >
-                Aggiungi categoria personalizzata
+                {t('useCustomCategory')}
               </button>
             </div>
           ) : (
@@ -127,26 +160,39 @@ export function TransactionForm({ onSubmit }: TransactionFormProps) {
                 onChange={(e) => setCustomCategory(e.target.value)}
                 required
                 className="w-full p-2.5 rounded-lg border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 shadow-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-                placeholder="Categoria personalizzata"
+                placeholder={t('customCategory')}
               />
               <button 
                 type="button" 
                 onClick={() => setIsCustomCategory(false)}
                 className="text-sm text-blue-600 dark:text-blue-400 hover:underline"
               >
-                Usa categoria predefinita
+                {t('usePredefinedCategory')}
               </button>
             </div>
           )}
         </div>
 
-        <div className="flex justify-end">
+        <div className="flex justify-end space-x-3">
+          {isEdit && onCancel && (
+            <button
+              type="button"
+              onClick={onCancel}
+              className="px-6 py-3 border border-gray-300 dark:border-gray-600 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors"
+            >
+              {t('cancel')}
+            </button>
+          )}
           <button
             type="submit"
             className="flex items-center px-6 py-3 border border-transparent rounded-lg text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors"
           >
-            <PlusCircle className="w-5 h-5 mr-2" />
-            {t('add')}
+            {isEdit ? (
+              <Save className="w-5 h-5 mr-2" />
+            ) : (
+              <PlusCircle className="w-5 h-5 mr-2" />
+            )}
+            {isEdit ? t('update') : t('add')}
           </button>
         </div>
       </form>

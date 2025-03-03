@@ -8,24 +8,65 @@ import { Layout } from './components/Layout';
 import { Modal } from './components/Modal';
 import { PlusCircle } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import type { Transaction, TransactionType } from './types';
+
+// Definisci un'interfaccia per i dati del form
+interface FormData {
+  id?: number;
+  type: TransactionType;
+  title: string;
+  amount: number;
+  date: string;
+  category: string;
+}
 
 export default function App() {
   const { t } = useTranslation();
   const [month, setMonth] = useState(new Date().getMonth());
   const [year, setYear] = useState(new Date().getFullYear());
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isEditMode, setIsEditMode] = useState(false);
+  const [currentTransaction, setCurrentTransaction] = useState<Transaction | undefined>(undefined);
 
   const {
     transactions,
     loading,
     addTransaction,
+    updateTransaction,
     deleteTransaction,
     totalIncome,
     totalExpenses
   } = useTransactions(month, year);
 
-  const openModal = () => setIsModalOpen(true);
-  const closeModal = () => setIsModalOpen(false);
+  const openAddModal = () => {
+    setCurrentTransaction(undefined);
+    setIsEditMode(false);
+    setIsModalOpen(true);
+  };
+
+  const openEditModal = (transaction: Transaction) => {
+    setCurrentTransaction(transaction);
+    setIsEditMode(true);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setCurrentTransaction(undefined);
+    setIsEditMode(false);
+  };
+
+  const handleSubmit = (data: FormData) => {
+    if (isEditMode && data.id) {
+      updateTransaction(data as Transaction); // Il cast è sicuro perché in modalità edit l'id è presente
+    } else {
+      // Omettiamo l'id per l'aggiunta di una nuova transazione
+      // Usa la sintassi di rest senza assegnare l'id a una variabile
+      const { id, ...newTransactionData } = data;
+      addTransaction(newTransactionData);
+    }
+    closeModal();
+  };
 
   return (
     <Layout>
@@ -55,11 +96,13 @@ export default function App() {
             <TransactionList
               transactions={transactions}
               onDelete={deleteTransaction}
+              onEdit={openEditModal}
               type="income"
             />
             <TransactionList
               transactions={transactions}
               onDelete={deleteTransaction}
+              onEdit={openEditModal}
               type="expense"
             />
           </div>
@@ -68,7 +111,7 @@ export default function App() {
         {/* Bottone fisso in basso su mobile */}
         <div className="fixed bottom-4 right-4 sm:relative sm:bottom-auto sm:right-auto sm:flex sm:justify-end">
           <button
-            onClick={openModal}
+            onClick={openAddModal}
             className="flex items-center px-4 py-2 border border-transparent rounded-lg text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors shadow-lg sm:shadow-none"
           >
             <PlusCircle className="w-5 h-5 mr-2" />
@@ -77,10 +120,12 @@ export default function App() {
         </div>
 
         <Modal isOpen={isModalOpen} onClose={closeModal}>
-          <TransactionForm onSubmit={(data) => {
-            addTransaction(data);
-            closeModal();
-          }} />
+          <TransactionForm 
+            onSubmit={handleSubmit}
+            initialData={currentTransaction}
+            isEdit={isEditMode}
+            onCancel={closeModal}
+          />
         </Modal>
       </div>
     </Layout>

@@ -1,15 +1,16 @@
 import { format } from 'date-fns';
-import { Trash2, ArrowUpCircle, ArrowDownCircle } from 'lucide-react';
+import { Trash2, Edit2, ArrowUpCircle, ArrowDownCircle } from 'lucide-react';
 import type { Transaction } from '../types';
 import { useTranslation } from 'react-i18next';
 
 interface TransactionListProps {
   transactions: Transaction[];
   onDelete: (id: number) => void;
+  onEdit: (transaction: Transaction) => void; // Aggiungi funzione per modificare
   type: 'income' | 'expense';
 }
 
-export function TransactionList({ transactions, onDelete, type }: TransactionListProps) {
+export function TransactionList({ transactions, onDelete, onEdit, type }: TransactionListProps) {
   const { t } = useTranslation();
   const filteredTransactions = transactions.filter((t) => t.type === type);
   const Icon = type === 'income' ? ArrowUpCircle : ArrowDownCircle;
@@ -60,16 +61,26 @@ export function TransactionList({ transactions, onDelete, type }: TransactionLis
                 )}
               </div>
             </div>
-            <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-3">
               <span className={`font-medium ${iconColor}`}>
                 {type === 'income' ? '+' : '-'}€{transaction.amount.toFixed(2)}
               </span>
-              <button
-                onClick={() => onDelete(transaction.id)}
-                className="text-gray-400 hover:text-red-500 dark:text-gray-500 dark:hover:text-red-400 transition-colors"
-              >
-                <Trash2 className="w-5 h-5" />
-              </button>
+              <div className="flex space-x-1">
+                <button
+                  onClick={() => onEdit(transaction)}
+                  title={t('edit')}
+                  className="text-gray-400 hover:text-blue-500 dark:text-gray-500 dark:hover:text-blue-400 transition-colors p-1"
+                >
+                  <Edit2 className="w-5 h-5" />
+                </button>
+                <button
+                  onClick={() => onDelete(transaction.id)}
+                  title={t('delete')}
+                  className="text-gray-400 hover:text-red-500 dark:text-gray-500 dark:hover:text-red-400 transition-colors p-1"
+                >
+                  <Trash2 className="w-5 h-5" />
+                </button>
+              </div>
             </div>
           </div>
         ))}

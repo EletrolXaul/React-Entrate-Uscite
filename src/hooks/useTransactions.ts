@@ -1,5 +1,10 @@
 import { useState, useEffect } from 'react';
-import { fetchTransactions, addTransaction as apiAddTransaction, deleteTransaction as apiDeleteTransaction } from '../api/transactions';
+import { 
+  fetchTransactions, 
+  addTransaction as apiAddTransaction, 
+  deleteTransaction as apiDeleteTransaction,
+  updateTransaction as apiUpdateTransaction 
+} from '../api/transactions';
 import type { Transaction } from '../types';
 
 export function useTransactions(month: number, year: number) {
@@ -31,6 +36,18 @@ export function useTransactions(month: number, year: number) {
     }
   };
 
+  const updateTransaction = async (data: Transaction) => {
+    try {
+      const { id, ...transactionData } = data;
+      const updatedTransaction = await apiUpdateTransaction(id, transactionData);
+      setTransactions(
+        transactions.map(t => t.id === id ? updatedTransaction : t)
+      );
+    } catch (error) {
+      console.error('Error updating transaction:', error);
+    }
+  };
+
   const deleteTransaction = async (id: number) => {
     try {
       await apiDeleteTransaction(id);
@@ -52,6 +69,7 @@ export function useTransactions(month: number, year: number) {
     transactions,
     loading,
     addTransaction,
+    updateTransaction,
     deleteTransaction,
     totalIncome,
     totalExpenses
