@@ -6,4 +6,5 @@ export interface Transaction {
   title: string;
   amount: number;
   date: string;
+  category: string; // Aggiungi questo campo
 }

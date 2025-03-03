@@ -11,7 +11,7 @@ interface TransactionResponse {
   description: string;
   amount: string | number;
   date: string;
-  category?: string;
+  category: string; // Rimuovi l'opzionale per renderlo obbligatorio
 }
 
 export async function fetchTransactions(month: number, year: number) {
@@ -30,7 +30,8 @@ export async function fetchTransactions(month: number, year: number) {
       type: item.type,
       title: item.description, // Mappare description a title
       amount: parseFloat(item.amount.toString()),
-      date: item.date
+      date: item.date,
+      category: item.category || 'General' // Valore predefinito se manca
     }));
   } catch (error) {
     console.error('Errore nel recupero delle transazioni:', error);
@@ -50,7 +51,7 @@ export async function addTransaction(transaction: Omit<Transaction, 'id'>) {
         amount: transaction.amount,
         date: transaction.date,
         type: transaction.type,
-        category: 'General' // Aggiungi un valore predefinito per category
+        category: transaction.category || 'General' // Usa la categoria fornita o un valore predefinito
       }),
     });
     
@@ -65,7 +66,8 @@ export async function addTransaction(transaction: Omit<Transaction, 'id'>) {
       type: data.type,
       title: data.description,
       amount: parseFloat(data.amount.toString()),
-      date: data.date
+      date: data.date,
+      category: data.category
     };
   } catch (error) {
     console.error('Errore nell\'aggiunta della transazione:', error);
@@ -115,6 +117,9 @@ export async function updateTransaction(id: number, transaction: Partial<Omit<Tr
     if (transaction.type) {
       requestData.type = transaction.type;
     }
+    if (transaction.category) {
+      requestData.category = transaction.category;
+    }
     
     const response = await fetch(`${API_URL}/transactions/${id}`, {
       method: 'PUT',
@@ -134,7 +139,8 @@ export async function updateTransaction(id: number, transaction: Partial<Omit<Tr
       type: data.type,
       title: data.description,
       amount: parseFloat(data.amount.toString()),
-      date: data.date
+      date: data.date,
+      category: data.category
     };
   } catch (error) {
     console.error('Errore nell\'aggiornamento della transazione:', error);

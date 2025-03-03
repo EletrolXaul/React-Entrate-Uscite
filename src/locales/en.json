@@ -12,5 +12,9 @@
     "date": "Date",
     "add": "Add",
     "months": ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
-    "currentMonth": "Current month"
+    "currentMonth": "Current month",
+    "category": "Category",
+    "customCategory": "Custom Category",
+    "useCustomCategory": "Add custom category",
+    "usePredefinedCategory": "Use predefined category"
 }

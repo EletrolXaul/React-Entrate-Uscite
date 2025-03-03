@@ -49,9 +49,16 @@ export function TransactionList({ transactions, onDelete, type }: TransactionLis
           >
             <div>
               <h3 className="font-medium text-gray-900 dark:text-gray-100">{transaction.title}</h3>
-              <p className="text-sm text-gray-500 dark:text-gray-400">
-                {format(new Date(transaction.date), 'MMM d, yyyy')}
-              </p>
+              <div className="flex items-center space-x-2">
+                <p className="text-sm text-gray-500 dark:text-gray-400">
+                  {format(new Date(transaction.date), 'MMM d, yyyy')}
+                </p>
+                {transaction.category && (
+                  <span className="px-2 py-1 text-xs rounded-full bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
+                    {transaction.category}
+                  </span>
+                )}
+              </div>
             </div>
             <div className="flex items-center space-x-4">
               <span className={`font-medium ${iconColor}`}>
